@@ -1,0 +1,23 @@
+<!-- Babel is a library used for converted different languages or syntaxes into regular Javascript. We are going to use Babel for converting a syntax called JSX into plain Javascript. JSX is composed like regular HTML with a few differences (i.e. className instead of class). JSX allows us to insert regular Javascript inline with HTML. -->
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> <!-- //find this on React site -->
+  </head>
+  <body>
+    <div id='root'></div>
+
+    <script type='text/babel'> //add this to change JSX into javascript
+      const { render } = ReactDOM;
+      const root = document.querySelector('#root');
+      render(React.createElement('div', null, React.createElement('h1', null, 'Hello World')), root);
+      //render(React.createElement('hr'), root);
+      render(<div>
+        <h1>Hello World</h1>
+        <hr /></div>, root);
+    </script>
+
+  </body>
+</html>

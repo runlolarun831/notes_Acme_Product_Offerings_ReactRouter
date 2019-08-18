@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+    nav {
+      display: flex;
+      justify-content: space-around;
+    }
+    </style>
+  </head>
+  <body>
+    <div id='root'></div>
+
+    <script type='text/babel'> // allows you to convert into Javascript
+      const { render } = ReactDOM;
+      const root = document.querySelector('#root');
+
+      const Home = ()=> <h1>Home</h1>;
+      const About = ()=> <h1>About Us</h1>;
+
+      class App extends React.Component{
+        constructor() {
+          super();
+          this.state = {
+            view: 'home'
+          };
+        }
+        componentDidMount(){
+          window.addEventListener('hashchange', ()=> {
+            const hash = window.location.hash;
+            const view = hash.slice(1);
+            this.setState( { view });
+          });  // on a refresh a hash is not considered to be changed
+          const hash = window.location.hash; //look for the hash
+          if(!hash){
+            window.location.hash = 'home';
+          }
+          else {
+            const view = hash.slice(1);
+            this.setState( { view } ); //set it
+          }
+
+        }
+        render(){
+          const { view } = this.state;
+          let Current;
+          if(view === 'home'){
+            Current = Home;
+          }
+          else if(view === 'about'){
+            Current = About;
+          }
+          // vvvvv!!Current vvvv take something that is falsey and make it False vvvvv
+          return (
+            <div>
+              <nav>
+                <a href='#home'>Home</a>
+                <a href='#about'>About</a>
+              </nav>
+              { !!Current && <Current /> }
+            </div>
+          );
+        }
+      }
+      render(<App />, root);
+    </script>
+
+  </body>
+</html>

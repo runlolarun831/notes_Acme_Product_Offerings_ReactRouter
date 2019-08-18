@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.0.1/react-router-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+    nav {
+      display: flex;
+      justify-content: space-around;
+    }
+    </style>
+  </head>
+  <body>
+    <div id='root'></div>
+
+    <script type='text/babel'> // allows you to convert into Javascript
+      console.log(ReactRouterDOM);//check if installed
+      const { HashRouter, Switch, Link, Route, Redirect } = ReactRouterDOM; //need HashRouter and Route
+      const { render } = ReactDOM;
+      const root = document.querySelector('#root');
+
+      const Home = ()=> <h1>Home</h1>;
+      const About = ()=> <h1>About Us</h1>;
+      //HashRouter higher order component that controls the "state" -still state just not seeing it
+      const App = ()=> {
+        return (
+          <HashRouter>
+            <nav>
+              <Link to='/home'>Home</Link>
+              <Link to='/about'>About</Link>
+            </nav>
+            <Switch>
+              <Route path='/home' component={ Home } />
+              <Route path='/about' component={ About } />
+              <Redirect to='/home' /> //if jibberish is entered
+            </Switch>
+          </HashRouter>
+        );
+      }
+
+      render(<App />, root);
+    </script>
+
+  </body>
+</html>
